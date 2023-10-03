@@ -1,5 +1,6 @@
 package edu.temple.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,10 +39,15 @@ class MainActivity : AppCompatActivity() {
 /* Convert to RecyclerView.Adapter */
 class TextSizeAdapter (private val textSizes: Array<Int>, callback: (Int)->Unit) : RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
 
+    lateinit var callback = findViewById(R.id.callback)
+
     // TODO Step 1: Complete onClickListener to return selected number
     inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder (textView) {
         init {
-            textView.setOnClickListener {  }
+            textView.setOnClickListener {
+                val launchIntent = Intent(this@MainActivity, DisplayActivity::class.java)
+                adapter.launch(launchIntent)
+            }
         }
     }
 
