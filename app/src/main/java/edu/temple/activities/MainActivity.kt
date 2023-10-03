@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.result.contract.ActivityResultContracts
 
 const val MESSAGE_KEY = "Text size"
 
@@ -47,10 +49,10 @@ class TextSizeAdapter (private val textSizes: Array<Int>, callback: (Int)->Unit)
     inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder (textView) {
         init {
             textView.setOnClickListener {
-                callback()
+//                callback()
                 val launchIntent = Intent(this@MainActivity, DisplayActivity::class.java)
-                launchIntent.putExtra(MESSAGE_KEY, textSize.toFloat())
-                adapter.launch(launchIntent)
+                launchIntent.putExtra(MESSAGE_KEY, textView.text.toString())
+                startActivity(launchIntent)
             }
         }
     }
