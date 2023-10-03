@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+const val MESSAGE_KEY = "Text size"
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +41,15 @@ class MainActivity : AppCompatActivity() {
 /* Convert to RecyclerView.Adapter */
 class TextSizeAdapter (private val textSizes: Array<Int>, callback: (Int)->Unit) : RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
 
-    lateinit var callback = findViewById(R.id.callback)
+    private val callback = callback
 
     // TODO Step 1: Complete onClickListener to return selected number
     inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder (textView) {
         init {
             textView.setOnClickListener {
+                callback()
                 val launchIntent = Intent(this@MainActivity, DisplayActivity::class.java)
+                launchIntent.putExtra(MESSAGE_KEY, textSize.toFloat())
                 adapter.launch(launchIntent)
             }
         }
